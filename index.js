@@ -14,6 +14,7 @@ function getNow() {
 
 var gcloudmon = function (options) {
     options = options || {};
+    options.authType = options.authType || 'fromJSON';
 
     this.prefix = options.prefix || CUSTOM_METRIC_DOMAIN;
     this.project = 'projects/' + options.project;
@@ -27,7 +28,7 @@ var gcloudmon = function (options) {
     ];
 
     this.getMonitoringClient = function (callback) {
-        google.auth.fromJSON(options.authJSON, function (err, authClient){
+        google.auth[options.authType](function (err, authClient){
         if (err) {
             return callback(err);
         }

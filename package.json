@@ -15,7 +15,10 @@
     "stackdriver",
     "monitoring"
   ],
-  "author": "Martin Lazarov <martin@lazarov.bg>",
+  "author": {
+    "name": "Martin Lazarov",
+    "email": "martin@lazarov.bg"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mlazarov/gcloudmon/issues"
@@ -25,9 +28,30 @@
     "googleapis": "^4.0.0"
   },
   "maintainers": [
-    "mlazarov <martin@lazarov.bg>"
+    {
+      "name": "mlazarov",
+      "email": "martin@lazarov.bg"
+    }
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "_id": "gcloudmon@2.0.3",
+  "dist": {
+    "shasum": "05e972daa9b2c99adc38ff86be757d914629346d",
+    "tarball": "https://registry.npmjs.org/gcloudmon/-/gcloudmon-2.0.3.tgz"
+  },
+  "_from": "gcloudmon@*",
+  "_npmVersion": "1.3.6",
+  "_npmUser": {
+    "name": "mlazarov",
+    "email": "martin@lazarov.bg"
+  },
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/gcloudmon-2.0.3.tgz_1460552952608_0.5486190845258534"
+  },
+  "directories": {},
+  "_shasum": "05e972daa9b2c99adc38ff86be757d914629346d",
+  "_resolved": "https://registry.npmjs.org/gcloudmon/-/gcloudmon-2.0.3.tgz"
 }
