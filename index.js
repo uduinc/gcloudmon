@@ -116,6 +116,8 @@ gcloudmon.prototype.deleteMetric = function (metricType, callback){
 gcloudmon.prototype.setValue = function(metricType, value, params, callback){
     var self = this;
     var now = getNow();
+    var valueObj = {};
+    valueObj[Number.isInteger(value) ? "int64Value" : "doubleValue"] = value;
 
     self.getMonitoringClient(function (err, authClient) {
         gmonitoring.projects.timeSeries.create({
@@ -137,9 +139,7 @@ gcloudmon.prototype.setValue = function(metricType, value, params, callback){
                             startTime: params.intervalStart || now,
                             endTime: params.intervalEnd || now
                         },
-                        value: {
-                            [Number.isInteger(value) ? "int64Value" : "doubleValue"]: value
-                        }
+                        value: valueObj
                     }
                 }]
            }
@@ -149,11 +149,13 @@ gcloudmon.prototype.setValue = function(metricType, value, params, callback){
 gcloudmon.prototype.setValues = function (data,callback){
     var self = this;
     var now = getNow();
-
+    var valueObj = {};
+    
     self.getMonitoringClient(function (err, authClient) {
 
         var resources = {
             "timeSeries": data.map(function (params){
+				    valueObj[Number.isInteger(params.metricValue) ? "int64Value" : "doubleValue"] = params.metricValue;            	
                 return {
                     metric: {
                         type: self.prefix + '/' + params.metricType,
@@ -170,9 +172,7 @@ gcloudmon.prototype.setValues = function (data,callback){
                             startTime: params.intervalStart || now,
                             endTime: params.intervalEnd || now
                         },
-                        value: {
-                            [Number.isInteger(params.metricValue) ? "int64Value" : "doubleValue"]: params.metricValue
-                        }
+                        value: valueObj
                     }
                 }
             })
