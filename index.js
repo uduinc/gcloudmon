@@ -28,7 +28,10 @@ var gcloudmon = function (options) {
     ];
 
     this.getMonitoringClient = function (callback) {
+    	// console.log('options.authType = ', options.authType );
         google.auth[options.authType](function (err, authClient){
+        	// console.log( 'err = ', err );
+        	// console.log( 'authClient = ', authClient );
         if (err) {
             return callback(err);
         }
@@ -49,19 +52,20 @@ gcloudmon.prototype.listMonitoredResourceDescriptors = function (callback){
         gmonitoring.projects.monitoredResourceDescriptors.list({
             auth: authClient,
             name: self.project,
-            pageSize: 5
+            pageSize: 500
         }, callback);
     });
 }
 
-gcloudmon.prototype.listMetricDescriptors = function (callback){
+gcloudmon.prototype.listMetricDescriptors = function (params, callback){
     var self = this;
 
     self.getMonitoringClient(function (err, authClient) {
         gmonitoring.projects.metricDescriptors.list({
             auth: authClient,
+            filter: params.filter,
             name: self.project,
-            pageSize: 5
+            pageSize: params.pageSize || 5
         }, callback);
     });
 }
@@ -156,7 +160,8 @@ gcloudmon.prototype.setValues = function (data,callback){
                         labels: params.labels
                     },
                     resource: {
-                        type: params.resourceType || "global"
+                        type: params.resourceType || "global",
+                        labels: params.resourceLabels || {}
                     },
                     metricKind: params.metricKind || "GAUGE",
                     valueType: params.valueType || "INT64",
