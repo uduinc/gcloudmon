@@ -149,21 +149,19 @@ gcloudmon.prototype.setValue = function(metricType, value, params, callback){
 gcloudmon.prototype.setValues = function (data,callback){
     var self = this;
     var now = getNow();
-    var valueObj = {};
-    
     self.getMonitoringClient(function (err, authClient) {
 
         var resources = {
-            "timeSeries": data.map(function (params){
-				    valueObj[Number.isInteger(params.metricValue) ? "int64Value" : "doubleValue"] = params.metricValue;            	
+            "timeSeries": data.map(function (params) {
+            	var valueObj = {};
+					valueObj[Number.isInteger(params.metricValue) ? "int64Value" : "doubleValue"] = params.metricValue;
                 return {
                     metric: {
                         type: self.prefix + '/' + params.metricType,
                         labels: params.labels
                     },
                     resource: {
-                        type: params.resourceType || "global",
-                        labels: params.resourceLabels || {}
+                        type: params.resourceType || "global"
                     },
                     metricKind: params.metricKind || "GAUGE",
                     valueType: params.valueType || "INT64",
