@@ -179,7 +179,13 @@ gcloudmon.prototype.setValues = function (data,callback){
             auth: authClient,
             name: self.project,
             resource: resources
-        }, callback);
+        }, function ( err, data ) {
+        		if ( err ) {
+        			callback( err, { errorData: resources } );
+        		} else {
+        			callback( err, data );
+        		}
+        });
     });
 }
 
