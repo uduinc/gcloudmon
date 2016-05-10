@@ -154,7 +154,7 @@ gcloudmon.prototype.setValues = function (data,callback){
         var resources = {
             "timeSeries": data.map(function (params) {
             	var valueObj = {};
-					valueObj[Number.isInteger(params.metricValue) ? "int64Value" : "doubleValue"] = params.metricValue;
+					valueObj[ params.valueType ? params.valueType.toLowerCase() + 'Value' : "int64Value"] = params.metricValue;
                 return {
                     metric: {
                         type: self.prefix + '/' + params.metricType,
