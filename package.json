@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://git@github.com/uduinc/gcloudmon.git"
+    "url": "git+https://github.com/uduinc/gcloudmon.git"
   },
   "keywords": [
     "google",
